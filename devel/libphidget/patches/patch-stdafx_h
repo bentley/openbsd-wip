@@ -1,0 +1,11 @@
+$OpenBSD$
+--- stdafx.h.orig	Fri Sep 28 15:02:51 2012
++++ stdafx.h	Fri Sep 28 15:02:55 2012
+@@ -9,6 +9,7 @@
+ #include <stdio.h>
+ #include <stdlib.h>
+ #include <stddef.h>
++#include <stdint.h>
+ #ifdef WINCE
+ 	int errno;
+ 	#define strerror(err) "strerror() Not Supported in Windows CE"

@@ -1,0 +1,24 @@
+$OpenBSD$
+--- utils/utils.c.orig	Fri Sep 28 14:56:45 2012
++++ utils/utils.c	Fri Sep 28 14:58:01 2012
+@@ -404,7 +404,7 @@ stream_server_connect(const char *dest, const char *sv
+ 	//hints.ai_family = AF_INET;
+ 	hints.ai_family = PF_UNSPEC; //any family (including IPV6)
+ 	hints.ai_socktype = SOCK_STREAM;
+-#ifndef WINCE
++#if !defined(WINCE) && !defined(__OpenBSD__)
+ 	hints.ai_flags = AI_ADDRCONFIG;
+ #endif
+ 
+@@ -666,7 +666,10 @@ stream_server_accept(int port, 
+ 
+ 	// Get a list of interfaces to Bind to
+ 	memset(&hints, '\0', sizeof(hints));
+-	hints.ai_flags = AI_PASSIVE | AI_ADDRCONFIG;
++	hints.ai_flags = AI_PASSIVE;
++#ifndef __OpenBSD__
++	hints.ai_flags |= AI_ADDRCONFIG;
++#endif
+ 	hints.ai_socktype = SOCK_STREAM;
+ 	//hints.ai_family = PF_UNSPEC;
+ 
